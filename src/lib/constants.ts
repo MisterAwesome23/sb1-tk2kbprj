@@ -6,6 +6,8 @@ export const ROUTES = {
   EMPLOYERS: '/employers',
   ABOUT: '/about',
   LOGIN: '/login',
+  EMPLOYEE_DASHBOARD: '/employee-dashboard',
+  EMPLOYER_DASHBOARD: '/employer-dashboard',
 } as const;
 
 export const JOB_TYPES = {
