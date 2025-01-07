@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserCircle, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export function ProfileMenu() {
+  const navigate = useNavigate();
   const { profile, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -19,6 +20,12 @@ export function ProfileMenu() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleSignOut = async () => {
+    await signOut();
+    setIsOpen(false);
+    navigate('/');
+  };
+
   return (
     <div className="relative" ref={menuRef}>
       <button
@@ -30,7 +37,7 @@ export function ProfileMenu() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
           <div className="py-1" role="menu">
             <Link
               to="/profile"
@@ -41,10 +48,7 @@ export function ProfileMenu() {
               Edit Profile
             </Link>
             <button
-              onClick={async () => {
-                await signOut();
-                setIsOpen(false);
-              }}
+              onClick={handleSignOut}
               className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               <LogOut className="w-4 h-4 mr-2" />

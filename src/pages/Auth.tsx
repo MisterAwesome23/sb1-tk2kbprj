@@ -35,6 +35,9 @@ export function Auth() {
             .insert([{ id: authData.user.id, username, role }]);
 
           if (profileError) throw profileError;
+          
+          // Redirect after successful signup
+          navigate(role === 'employer' ? '/employer-dashboard' : '/employee-dashboard');
         }
       } else {
         const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
