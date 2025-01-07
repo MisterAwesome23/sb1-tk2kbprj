@@ -1,14 +1,26 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { Job } from '../types';
 import { fuzzyMatch } from '../utils/searchUtils';
 
 export function useJobFilters(jobs: Job[]) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+  const [filters, setFilters] = useState({
+    searchQuery: '',
+    sortOrder: 'newest' as const,
+  });
+
+  const setSearchQuery = useCallback((searchQuery: string) => {
+    setFilters(prev => ({ ...prev, searchQuery }));
+  }, []);
+
+  const setSortOrder = useCallback((sortOrder: 'newest' | 'oldest') => {
+    setFilters(prev => ({ ...prev, sortOrder }));
+  }, []);
 
   const filteredJobs = useMemo(() => {
     return jobs
       .filter(job => {
+        if (!filters.searchQuery) return true;
+
         const searchFields = [
           job.title,
           job.company,
@@ -18,23 +30,18 @@ export function useJobFilters(jobs: Job[]) {
           ...job.requirements
         ];
 
-        return searchFields.some(field => 
-          fuzzyMatch(field, searchQuery)
-        );
+        return searchFields.some(field => fuzzyMatch(field, filters.searchQuery));
       })
       .sort((a, b) => {
-        if (sortOrder === 'newest') {
-          return b.createdAt.getTime() - a.createdAt.getTime();
-        }
-        return a.createdAt.getTime() - b.createdAt.getTime();
+        const order = filters.sortOrder === 'newest' ? -1 : 1;
+        return order * (a.createdAt.getTime() - b.createdAt.getTime());
       });
-  }, [jobs, searchQuery, sortOrder]);
+  }, [jobs, filters.searchQuery, filters.sortOrder]);
 
   return {
-    searchQuery,
+    ...filters,
     setSearchQuery,
-    sortOrder,
     setSortOrder,
-    filteredJobs
+    filteredJobs,
   };
 }
