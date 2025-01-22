@@ -6,6 +6,7 @@ export const ROUTES = {
   EMPLOYERS: '/employers',
   ABOUT: '/about',
   LOGIN: '/login',
+  PROFILE: '/profile',
   EMPLOYEE_DASHBOARD: '/employee-dashboard',
   EMPLOYER_DASHBOARD: '/employer-dashboard',
 } as const;
