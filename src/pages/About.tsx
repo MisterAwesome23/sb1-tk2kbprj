@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '../components/ui/Container';
-import { Brain, Users, BarChart, Puzzle } from 'lucide-react';
+import { Brain, Users, BarChart, Puzzle, Heart } from 'lucide-react';
 
 export function About() {
   const features = [
@@ -28,6 +28,26 @@ export function About() {
 
   return (
     <Container>
+      {/* Support Section */}
+      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl p-8 mb-16">
+        <div className="max-w-3xl mx-auto text-center">
+          <Heart className="w-12 h-12 mx-auto mb-4 animate-pulse" />
+          <h2 className="text-3xl font-bold mb-4">Support HireFusion</h2>
+          <p className="text-lg mb-6 opacity-90">
+            Help us revolutionize the hiring process and create better workplace matches. Your support enables us to continue developing innovative solutions.
+          </p>
+          <a
+            href="https://buy.stripe.com/test_7sI6se5xUgsf0nufYY"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-8 py-3 border-2 border-white rounded-full text-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors duration-200"
+          >
+            <Heart className="w-5 h-5 mr-2" />
+            Support Our Mission
+          </a>
+        </div>
+      </div>
+
       <div className="py-12 max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">About TGX HireFusion</h1>
