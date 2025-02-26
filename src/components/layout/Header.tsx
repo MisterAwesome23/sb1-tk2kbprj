@@ -25,6 +25,9 @@ export function Header() {
               <Link to="/employers" className="text-base font-medium text-gray-700 hover:text-indigo-600">
                 For Employers
               </Link>
+              <Link to="/games" className="text-base font-medium text-gray-700 hover:text-indigo-600">
+                Games
+              </Link>
               <Link to="/about" className="text-base font-medium text-gray-700 hover:text-indigo-600">
                 About
               </Link>
@@ -57,6 +60,9 @@ export function Header() {
               </Link>
               <Link to="/employers" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">
                 For Employers
+              </Link>
+              <Link to="/games" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">
+                Games
               </Link>
               <Link to="/about" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">
                 About
